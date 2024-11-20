@@ -1,0 +1,49 @@
+{
+  "pluginAlias": "OjElectronicsThermostatControlPlugin",
+  "pluginType": "platform",
+  "singular": true,
+  "strictValidation": false,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "required": true,
+        "default": "OJElectronics"
+      },
+      "accounts": {
+        "title": "accounts",
+        "type": "array",
+        "items": {
+          "title": "Account",
+          "type": "object",
+          "properties": {
+            "username": {
+              "title": "username",
+              "type": "string",
+              "placeholder": "Username",
+              "required": true
+            },
+            "password": {
+              "title": "password",
+              "type": "string",
+              "placeholder": "",
+              "required": true
+            },
+            "customerNumber": {
+              "title": "Customer Number",
+              "type": "string",
+              "placeholder": "Username",
+              "required": true,
+              "oneOf": [
+                { "title": "OJ Electronics", "enum": [1] },
+                { "title": "HeatMat", "enum": [99] }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
