@@ -5,12 +5,12 @@ import type {
   Logging,
   PlatformAccessory,
   PlatformConfig,
-  Service
+  Service,
 } from 'homebridge';
 
-import {OJElectronicsThermostatAccessory} from './platformAccessory.js';
-import {PLATFORM_NAME, PLUGIN_NAME} from './settings.js';
-import {Group, OJElectronics, Session, Thermostat} from 'oj-electronics-thermostat';
+import { OJElectronicsThermostatAccessory } from './platformAccessory.js';
+import { PLATFORM_NAME, PLUGIN_NAME } from './settings.js';
+import { Group, OJElectronics, Session, Thermostat } from 'oj-electronics-thermostat';
 
 
 export class OjElectronicsThermostatControlPlugin implements DynamicPlatformPlugin {

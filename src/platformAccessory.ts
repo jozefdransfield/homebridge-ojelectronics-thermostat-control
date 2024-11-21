@@ -1,7 +1,7 @@
-import type {Characteristic, PlatformAccessory, Service} from 'homebridge';
+import type { Characteristic, PlatformAccessory, Service } from 'homebridge';
 
-import {OjElectronicsThermostatControlPlugin} from './platform.js';
-import {Group, Temperature, Thermostat} from 'oj-electronics-thermostat';
+import { OjElectronicsThermostatControlPlugin } from './platform.js';
+import { Group, Temperature, Thermostat } from 'oj-electronics-thermostat';
 
 export class OJElectronicsThermostatAccessory {
   private service: Service;
