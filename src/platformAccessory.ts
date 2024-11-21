@@ -13,11 +13,11 @@ export class OJElectronicsThermostatAccessory {
     public group: Group,
     public thermostat: Thermostat,
   ) {
-    // set accessory information
+
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
-      .setCharacteristic(this.platform.Characteristic.Manufacturer, 'Default-Manufacturer') // Todo get this detail from the apis
-      .setCharacteristic(this.platform.Characteristic.Model, 'Default-Model') // Todo get this detail from the apis
-      .setCharacteristic(this.platform.Characteristic.SerialNumber, 'Default-Serial'); // Todo get this detail from the apis
+      .setCharacteristic(this.platform.Characteristic.Manufacturer, 'OJElectronics')
+      .setCharacteristic(this.platform.Characteristic.Model, 'OWD5')
+      .setCharacteristic(this.platform.Characteristic.SerialNumber, this.thermostat.serialNumber);
 
 
     this.characteristic = platform.api.hap.Characteristic;
@@ -25,18 +25,15 @@ export class OJElectronicsThermostatAccessory {
 
     this.service.setCharacteristic(this.platform.Characteristic.Name, thermostat.name);
 
-    this.service.getCharacteristic(this.characteristic.CurrentHeatingCoolingState)
-      // .onGet(this.handleCurrentHeatingCoolingStateGet.bind(this));
+    this.service.getCharacteristic(this.characteristic.CurrentHeatingCoolingState);
 
     this.service.getCharacteristic(this.characteristic.TargetHeatingCoolingState)
-      // .onGet(this.handleTargetHeatingCoolingStateGet.bind(this))
       .onSet(this.handleTargetHeatingCoolingStateSet.bind(this));
 
-    this.service.getCharacteristic(this.characteristic.CurrentTemperature)
-      // .onGet(this.handleCurrentTemperatureGet.bind(this));
+    this.service.getCharacteristic(this.characteristic.CurrentTemperature);
 
     this.service.getCharacteristic(this.characteristic.TargetTemperature)
-      .onGet(this.handleTargetTemperatureGet.bind(this)).onSet(this.handleTargetTemperatureSet.bind(this));
+      .onSet(this.handleTargetTemperatureSet.bind(this));
 
     this.service.getCharacteristic(this.characteristic.TemperatureDisplayUnits)
       .onGet(this.handleTemperatureDisplayUnitsGet.bind(this))
@@ -47,7 +44,7 @@ export class OJElectronicsThermostatAccessory {
         validValues: [
           this.characteristic.TargetHeatingCoolingState.OFF,
           this.characteristic.TargetHeatingCoolingState.HEAT,
-          this.characteristic.TargetHeatingCoolingState.HEAT],
+          this.characteristic.TargetHeatingCoolingState.AUTO],
       });
 
     this.group = group;
@@ -55,7 +52,7 @@ export class OJElectronicsThermostatAccessory {
   }
 
   update() {
-    this.platform.log.debug('Updating Thermostat ', this.thermostat.serialNumber, this.thermostat.name);
+    this.platform.log.debug('Updating Thermostat ', this.thermostat.serialNumber, this.thermostat);
 
     this.service.getCharacteristic(this.characteristic.CurrentTemperature)
       .updateValue(this.thermostat.floorTemperature);
@@ -75,16 +72,9 @@ export class OJElectronicsThermostatAccessory {
       this.service.getCharacteristic(this.characteristic.TargetHeatingCoolingState)
         .updateValue(this.characteristic.TargetHeatingCoolingState.AUTO);
     }
-  }
 
-  handleCurrentHeatingCoolingStateGet() {
-    this.platform.log.debug('Triggered GET CurrentHeatingCoolingState');
-
-    if (this.thermostat.heating) {
-      return this.characteristic.CurrentHeatingCoolingState.HEAT;
-    } else {
-      return this.characteristic.CurrentHeatingCoolingState.OFF;
-    }
+    this.service.getCharacteristic(this.characteristic.TargetTemperature)
+      .updateValue(this.thermostat.manualSetPoint < 10 ? 10 : this.thermostat.manualSetPoint);
   }
 
   handleTargetHeatingCoolingStateSet(value) {
@@ -103,24 +93,13 @@ export class OJElectronicsThermostatAccessory {
     }
   }
 
-  handleTargetTemperatureGet() {
-    this.platform.log.debug('Triggered GET TargetTemperature');
-
-    // set this to a valid value for TargetTemperature
-    const currentValue = 10;
-
-    return currentValue;
-  }
-
   handleTargetTemperatureSet(value) {
     this.platform.log.debug('Triggered SET TargetTemperature:', value);
-
-    // TODO: store the target temp locally?
 
     this.group.manualMode(Temperature.ofCelsius(value)).then(() => {
       this.platform.log.info('Setting Target Temperature to ', value, ' for ', this.thermostat.serialNumber);
     });
-    //
+
   }
 
   /**
