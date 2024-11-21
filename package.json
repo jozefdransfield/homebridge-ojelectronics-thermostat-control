@@ -3,7 +3,6 @@
   "displayName": "OJElectronics Thermostat Control",
   "type": "module",
   "version": "1.0.0",
-  "private": true,
   "description": "Control your OJ Electronics Thermostat from Homebridge",
   "author": "Your Name",
   "license": "Apache-2.0",
