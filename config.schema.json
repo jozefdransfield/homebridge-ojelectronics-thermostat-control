@@ -38,6 +38,7 @@
               "required": true,
               "oneOf": [
                 { "title": "OJ Electronics", "enum": [1] },
+                { "title": "Schluter", "enum": [3] },
                 { "title": "HeatMat", "enum": [99] }
               ]
             }
