@@ -57,7 +57,7 @@ export class OJElectronicsThermostatAccessory {
     this.service.getCharacteristic(this.characteristic.CurrentTemperature)
       .updateValue(this.thermostat.floorTemperature);
 
-    this.platform.log.debug('Fwoor is', this.thermostat.floorTemperature, this.thermostat.heating);
+    this.platform.log.debug('Floor is', this.thermostat.floorTemperature, this.thermostat.heating);
 
     if (this.thermostat.heating) {
       this.service.getCharacteristic(this.characteristic.CurrentHeatingCoolingState)

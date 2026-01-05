@@ -124,3 +124,7 @@ dist
 .idea
 .vscode
 
+#Dev Homebridge
+dev-homebridge/persist
+dev-homerbdige/accessories
+
