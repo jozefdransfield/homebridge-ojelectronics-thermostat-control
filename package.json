@@ -15,7 +15,7 @@
     "url": "https://github.com/jozefdransfield/homebridge-ojelectronics-thermostat-control/issues"
   },
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin", "oj electronics", "heatmat", "schlüter"
   ],
   "main": "dist/index.js",
   "engines": {
