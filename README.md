@@ -4,10 +4,11 @@
 
 </p>
 
-<span align="center">
-
 # Homebridge OJ Electronics Plugin
 
-This plugin adds support for OJ Electronics and Heatmat underfloor heating thermostat wifi controllers to homebridge
+This plugin adds support for OJ Electronics (and re-branded) underfloor heating thermostat controllers to homebridge
 
-</span>
+Currently supports devices branded as:
+- OJ Electronics
+- Heatmat
+- Schlüter “Ditra-Heat”
